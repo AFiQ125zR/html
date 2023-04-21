@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>AngularJS Example - Calculations</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+</head>
+<body ng-controller="myCtrl">
+    <h1>{{ title }}</h1>
+    <form>
+
+<table border="0">
+        <tr>
+            <td><label for="titleInput">Title</label></td>
+            <td>:</td>
+            <td><input type="text" id="titleInput" ng-model="title" placeholder="Enter title"></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><label for="qrSalesInput">QR Sales</label></td>
+            <td>:</td>
+            <td><input type="number" id="qrSalesInput" ng-model="qrSales" ng-change="calculateResults()" placeholder="Enter QR sales"></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><label for="cashSalesInput">Cash Sales</label></td>
+            <td>:</td>
+            <td><input type="number" id="cashSalesInput" ng-model="cashSales" 
+ng-change="calculateResults()" placeholder="Enter cash sales"></td>
+        </tr>
+        <tr>
+            <td><label for="cashNetProfitInput">Cash Nett Profit</label></td>
+            <td>:</td>
+            <td><input type="number" id="cashNetProfitInput" ng-model="cashNetProfit" 
+ng-change="calculateCashRolling()" placeholder="Enter cash nett profit"></td>
+        </tr>
+        <tr>
+            <td><label for="cashRollingInput">Cash Rolling</label></td>
+            <td>:</td>
+            <td><input type="number" id="cashRollingInput" ng-model="cashRolling" 
+ng-change="calculateCashNettProfit()" placeholder="Enter cash rolling"></td>
+        </tr>
+        
+        
+        
+    </table>
+
+
+      
+        
+        
+
+        
+    </form>
+  
+    <h2>Results</h2>
+
+<table border="0">
+        
+        <tr>
+            <td>QR Net Profit</td>
+            <td>:</td>
+            <td>{{ qrNetProfit }}</td>
+        </tr>
+        <tr>
+            <td>QR Rolling</td>
+            <td>:</td>
+            <td>{{ qrRolling }}</td>
+        </tr>
+        
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td>Cash Net Profit</td>
+            <td>:</td>
+            <td>{{ cashNetProfit }}</td>
+        </tr>
+
+    
+  
+        <tr>
+            <td>Cash Rolling</td>
+            <td>:</td>
+            <td>{{ cashRolling }}</td>
+        </tr>
+
+        
+  
+    </table>
+
+  
+  
+
+    <script>
+        // Define the AngularJS module
+        var app = angular.module('myApp', []);
+
+        // Define the AngularJS controller
+        app.controller('myCtrl', function($scope) {
+            $scope.title = '';
+            
+            $scope.qrSales = 0.00;
+            $scope.qrNetProfit = 0.00;
+            $scope.qrRolling = 0.00;
+
+            $scope.cashSales = 0.00;
+            $scope.cashNetProfit = 0.00;
+            $scope.cashRolling = 0.00;
+
+            $scope.billing = 0.00;
+            $scope.kopi = 0.00;
+          
+            $scope.calculateResults = function() {
+                $scope.qrNetProfit = $scope.qrSales * 0.5;
+                $scope.qrRolling = $scope.qrSales * 0.5;
+                
+                $scope.cashNetProfit = $scope.cashSales * 0.5;
+                $scope.cashRolling = $scope.cashSales * 0.5;
+            };
+            
+            $scope.calculateCashRolling = function() {
+                
+                $scope.cashRolling = $scope.cashSales - $scope.cashNetProfit;
+                
+            };
+            
+            $scope.calculateCashNettProfit = function() {
+                
+                $scope.cashNetProfit = $scope.cashSales - $scope.cashRolling;
+                
+            };
+        });
+    </script>
+</body>
+</html>
